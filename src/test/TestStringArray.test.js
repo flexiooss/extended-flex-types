@@ -1,5 +1,5 @@
 /* global runTest */
-import {StringArray} from '../js/StringArray'
+import {StringArray} from '../js/FlexArray/StringArray'
 import {TestCase} from 'code-altimeter-js'
 
 const assert = require('assert')
