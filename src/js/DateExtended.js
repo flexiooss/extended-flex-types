@@ -18,6 +18,29 @@ export class DateExtended extends Date {
   toJSON() {
     return this.toObject()
   }
+
+  /**
+   *
+   * @return {number}
+   */
+  getNextMonth() {
+    return this.setMonth(this.getMonth() + 1)
+  }
+
+  /**
+   * @return {number}
+   */
+  getPreviousMonth() {
+    return this.setMonth(this.getMonth() - 1)
+  }
+
+  /**
+   *
+   * @return {number}
+   */
+  getDaysInMonth() {
+    return new Date(this.getFullYear(), this.getMonth()+1, 0).getDate();
+  }
 }
 
 export class DateExtendedBuilder {

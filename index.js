@@ -4,4 +4,4 @@ export * from './src/js/FlexMap/ArrayMap'
 export * from './src/js/FlexMap/StringArrayMap'
 export * from './src/js/URLExtended'
 export * from './src/js/URLSearchParamsExtended'
-
+export * from './src/js/DateExtended'
