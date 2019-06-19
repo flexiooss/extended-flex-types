@@ -1,22 +1,44 @@
 import {assertType, isNull, isString} from '@flexio-oss/assert'
+import {FlexDate, FlexDateTime, FlexTime, FlexZonedDateTime} from '@flexio-oss/flex-types'
+
+const padLeft = (input, expectedLength, replaceWith) => {
+  return Array(expectedLength - String(input).length + 1).join(replaceWith || '0') + input;
+}
+
+
+
+
+
 
 export class DateExtended extends Date {
-  /**
-   *
-   * @return {Object}
-   */
-  toObject() {
-    return {
-      date: this.toISOString()
-    }
+  toUTCFullDate() {
+    return this.toISOString().split('T')[0]
   }
 
-  /**
-   *
-   * @return {Object}
-   */
-  toJSON() {
-    return this.toObject()
+  toUTCTime() {
+    return this.toISOString().split('T')[1].split('Z')[0]
+  }
+
+  toOffset() {
+    let str = (this.offsetMinutes < 0 ? '-' : '+')
+    str += padLeft(Math.floor(Math.abs(this.getTimezoneOffset()) / 60), 2) + ':' +
+      padLeft(Math.abs(this.getTimezoneOffset()) % 60, 2)
+
+    return str
+  }
+
+  toLocaleFullDate() {
+    return this.getFullYear() + '-' +
+      padLeft(this.getMonth() + 1, 2) + '-' +
+      padLeft(this.getDate(), 2)
+
+  }
+
+  toLocaleTime() {
+    return padLeft(this.getHours(), 2) + ':' +
+      padLeft(this.getMinutes(), 2) + ':' +
+      padLeft(this.getSeconds(), 2) + '.' +
+      padLeft(this.getMilliseconds(), 3)
   }
 
   /**
@@ -39,65 +61,77 @@ export class DateExtended extends Date {
    * @return {number}
    */
   getDaysInMonth() {
-    return new Date(this.getFullYear(), this.getMonth()+1, 0).getDate();
-  }
-}
-
-export class DateExtendedBuilder {
-  constructor() {
-    /**
-     *
-     * @type {?string}
-     * @private
-     */
-    this.__date = null
+    return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate()
   }
 
   /**
    *
-   * @param {?String} date
-   * @return {DateExtendedBuilder}
+   * @returns {FlexZonedDateTime}
    */
-  date(date) {
-    assertType(isNull(date) || isString(date), 'DateExtendedBuilder:href: arg should be a string or null')
-    this.__date = date
-    return this
+  toFlexZonedDateTime() {
+    let str = this.toISOString() + this.toOffset()
+    return new FlexZonedDateTime(str)
   }
 
   /**
-   * @param {Object} jsonObject
-   * @returns {DateExtendedBuilder}
+   * {FlexZonedDateTime} flexZonedDateTime
    */
-  static fromObject(jsonObject) {
-    const builder = new DateExtendedBuilder()
-    console.log(jsonObject.date)
-    builder.date(jsonObject.date)
-    return builder
+  static fromFlexZonedDateTime(flexZonedDateTime) {
+    return new DateExtended(fromTZDateTime(flexZonedDateTime.toJSON()))
+
   }
 
   /**
-   * @param {string} json
-   * @returns {DateExtendedBuilder}
+   *
+   * @returns {FlexDateTime}
    */
-  static fromJson(json) {
-    const jsonObject = JSON.parse(json)
-    return this.fromObject(jsonObject)
+  toFlexDateTime() {
+    let str = this.toLocaleFullDate() + 'T' + this.toLocaleTime()
+    return new FlexDateTime(str)
   }
 
   /**
-   * @param {DateExtended} instance
-   * @returns {DateExtendedBuilder}
+   * {FlexDateTime} flexDateTime
    */
-  static from(instance) {
-    const builder = new DateExtendedBuilder()
-    builder.date(instance.toISOString())
-    return builder
+  static fromFlexDateTime(flexDateTime) {
+    return new DateExtended(flexDateTime.toJSON())
   }
 
   /**
-   * @returns {DateExtended}
+   *
+   * @returns {FlexDate}
    */
-  build() {
-    return new DateExtended(this.__date)
+  toFlexDate() {
+    let str = this.toLocaleFullDate()
+    return new FlexDate(str)
   }
+
+  /**
+   * {FlexDate} flexDate
+   */
+  static fromFlexDate(flexDate) {
+    let fullDate = flexDate.toJSON().split('-')
+    return new DateExtended(fullDate[0], fullDate[1] - 1, fullDate[2])
+  }
+
+  /**
+   *
+   * @returns {FlexTime}
+   */
+  toFlexTime() {
+    let str = this.toLocaleTime()
+    return new FlexTime(str)
+  }
+
+  /**
+   * {FlexDateTime} flexTime
+   */
+  static fromFlexTime(flexTime) {
+    let time = flexTime.toJSON().split(/[:.]/g)
+    return new DateExtended(null, null, null, ...time)
+  }
+}
+
+function fromTZDateTime(tzDateTime) {
+  return tzDateTime.substring(0, tzDateTime.length - 6) + 'Z'
 }

@@ -1,21 +1,39 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
-import {DateExtended, DateExtendedBuilder} from '../js/DateExtended'
+import {DateExtended} from '../js/DateExtended'
 
 const assert = require('assert')
 
 export class TestDateExtendedTest extends TestCase {
-  testEncodeDate() {
-    const a = new DateExtended('2018-04-23T10:26:00.996Z')
-    assert.strictEqual(JSON.stringify(a), '{"date":"2018-04-23T10:26:00.996Z"}')
+  testToFlexDateTimeZone() {
+    let date = new DateExtended('2019-06-19T09:59:03.034Z')
+    let flexDate = date.toFlexZonedDateTime()
+    assert.deepEqual(DateExtended.fromFlexZonedDateTime(flexDate), date)
   }
 
-  testEncodeDecodeDate() {
-    const a = new DateExtended('2018-04-23T10:26:00.996Z')
-    const sa = JSON.stringify(a)
-    const b = DateExtendedBuilder.fromJson(sa).build()
+  testToFlexDateTime() {
+    let date = new DateExtended('2019-06-19T09:59:03.034Z')
+    let flexDate = date.toFlexDateTime()
+    assert.deepEqual(DateExtended.fromFlexDateTime(flexDate), date)
+  }
 
-    assert.deepEqual(a, b)
+  testToFlexDate() {
+    let date = new DateExtended('2019-06-19T09:59:03.034Z')
+    let flexDate = date.toFlexDate()
+    let dateFromFlex = DateExtended.fromFlexDate(flexDate)
+    assert.deepEqual(dateFromFlex.getFullYear(), date.getFullYear())
+    assert.deepEqual(dateFromFlex.getMonth(), date.getMonth())
+    assert.deepEqual(dateFromFlex.getDate(), date.getDate())
+  }
+
+  testToFlexTime() {
+    let date = new DateExtended(0, 0, 0, 9, 59, 3, 34)
+    let flexDate = date.toFlexTime()
+    let dateFromFlex = DateExtended.fromFlexTime(flexDate)
+    assert.deepEqual(dateFromFlex.getHours(), date.getHours())
+    assert.deepEqual(dateFromFlex.getMinutes(), date.getMinutes())
+    assert.deepEqual(dateFromFlex.getSeconds(), date.getSeconds())
+    assert.deepEqual(dateFromFlex.getMilliseconds(), date.getMilliseconds())
   }
 }
 
