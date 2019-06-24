@@ -31,7 +31,6 @@ export class DateExtended extends Date {
     return this.getFullYear() + '-' +
       padLeft(this.getMonth() + 1, 2) + '-' +
       padLeft(this.getDate(), 2)
-
   }
 
   toLocaleTime() {
@@ -68,7 +67,7 @@ export class DateExtended extends Date {
    *
    * @returns {FlexZonedDateTime}
    */
-  toFlexZonedDateTime() {
+  toUTCFlexZonedDateTime() {
     let str = this.toISOString() + this.toOffset()
     return new FlexZonedDateTime(str)
   }
@@ -78,15 +77,23 @@ export class DateExtended extends Date {
    */
   static fromFlexZonedDateTime(flexZonedDateTime) {
     return new DateExtended(fromTZDateTime(flexZonedDateTime.toJSON()))
-
   }
 
   /**
    *
    * @returns {FlexDateTime}
    */
-  toFlexDateTime() {
+  toLocaleFlexDateTime() {
     let str = this.toLocaleFullDate() + 'T' + this.toLocaleTime()
+    return new FlexDateTime(str)
+  }
+
+  /**
+   *
+   * @returns {FlexDateTime}
+   */
+  toUTCFlexDateTime() {
+    let str = this.toUTCFullDate() + 'T' + this.toUTCTime()
     return new FlexDateTime(str)
   }
 
@@ -101,8 +108,17 @@ export class DateExtended extends Date {
    *
    * @returns {FlexDate}
    */
-  toFlexDate() {
+  toLocaleFlexDate() {
     let str = this.toLocaleFullDate()
+    return new FlexDate(str)
+  }
+
+  /**
+   *
+   * @returns {FlexDate}
+   */
+  toUTCFlexDate() {
+    let str = this.toUTCFullDate()
     return new FlexDate(str)
   }
 
@@ -118,8 +134,17 @@ export class DateExtended extends Date {
    *
    * @returns {FlexTime}
    */
-  toFlexTime() {
+  toLocaleFlexTime() {
     let str = this.toLocaleTime()
+    return new FlexTime(str)
+  }
+
+  /**
+   *
+   * @returns {FlexTime}
+   */
+  toUTCFlexTime() {
+    let str = this.toUTCTime()
     return new FlexTime(str)
   }
 
