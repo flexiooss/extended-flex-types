@@ -1,6 +1,6 @@
 {
   "name": "@flexio-oss/extended-flex-types",
-  "version": "0.2.0-dev",
+  "version": "0.3.0-dev",
   "main": "index.js",
   "module": "index.js",
   "repository": "git@github.com:flexiooss/extended-flex-types",
@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@flexio-oss/assert": "0.0.0",
-    "@flexio-oss/flex-types": "0.1.0-dev"
+    "@flexio-oss/flex-types": "0.1.0"
   },
   "devDependencies": {
     "eslint": "^5.13.0",
