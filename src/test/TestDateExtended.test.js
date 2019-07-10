@@ -17,7 +17,6 @@ export class TestDateExtendedTest extends TestCase {
     assert.deepEqual(DateExtended.fromFlexDateTime(flexDate), date)
 
     let localDate = DateExtended.fromUTCFlexDateTime(flexDate)
-    console.log(localDate.getUTCHours() === date.getHours())
     assert.deepEqual(localDate.getUTCFullYear(), date.getFullYear())
     assert.deepEqual(localDate.getUTCMonth(), date.getMonth())
     assert.deepEqual(localDate.getUTCDate(), date.getDate())
