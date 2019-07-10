@@ -104,6 +104,11 @@ export class DateExtended extends Date {
     return new DateExtended(flexDateTime.toJSON())
   }
 
+  static fromUTCFlexDateTime(flexDateTime) {
+    let tmp = new DateExtended(flexDateTime.toJSON())
+    return new DateExtended(tmp.getTime() - (new Date().getTimezoneOffset() * 60000))
+  }
+
   /**
    *
    * @returns {FlexDate}

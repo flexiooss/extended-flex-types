@@ -6,19 +6,28 @@ const assert = require('assert')
 
 export class TestDateExtendedTest extends TestCase {
   testToFlexDateTimeZone() {
-    let date = new DateExtended('2019-06-19T09:59:03.034Z')
+    let date = new DateExtended(2019, 6, 19, 9, 59, 3, 34)
     let flexDate = date.toUTCFlexZonedDateTime()
     assert.deepEqual(DateExtended.fromFlexZonedDateTime(flexDate), date)
   }
 
   testToFlexDateTime() {
-    let date = new DateExtended('2019-06-19T09:59:03.034Z')
+    let date = new DateExtended(2019, 6, 19, 9, 59, 3, 34)
     let flexDate = date.toLocaleFlexDateTime()
     assert.deepEqual(DateExtended.fromFlexDateTime(flexDate), date)
+
+    let localDate = DateExtended.fromUTCFlexDateTime(flexDate)
+    console.log(localDate.getUTCHours() === date.getHours())
+    assert.deepEqual(localDate.getUTCFullYear(), date.getFullYear())
+    assert.deepEqual(localDate.getUTCMonth(), date.getMonth())
+    assert.deepEqual(localDate.getUTCDate(), date.getDate())
+    assert.deepEqual(localDate.getUTCHours(), date.getHours())
+    assert.deepEqual(localDate.getUTCMinutes(), date.getMinutes())
+    assert.deepEqual(localDate.getUTCSeconds(), date.getSeconds())
   }
 
   testToFlexDate() {
-    let date = new DateExtended('2019-06-19T09:59:03.034Z')
+    let date = new DateExtended(2019, 6, 19)
     let flexDate = date.toLocaleFlexDate()
     let dateFromFlex = DateExtended.fromFlexDate(flexDate)
     assert.deepEqual(dateFromFlex.getFullYear(), date.getFullYear())
