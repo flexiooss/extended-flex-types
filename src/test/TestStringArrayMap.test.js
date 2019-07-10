@@ -28,8 +28,6 @@ export class TestStringArrayMap extends TestCase {
 
     const b = StringArrayMapBuilder.fromJson(sa).build()
     assert.deepEqual(a, b)
-    console.log(a)
-    console.log(b)
   }
 }
 

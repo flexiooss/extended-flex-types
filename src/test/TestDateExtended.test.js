@@ -1,21 +1,47 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
-import {DateExtended, DateExtendedBuilder} from '../js/DateExtended'
+import {DateExtended} from '../js/DateExtended'
 
 const assert = require('assert')
 
 export class TestDateExtendedTest extends TestCase {
-  testEncodeDate() {
-    const a = new DateExtended('2018-04-23T10:26:00.996Z')
-    assert.strictEqual(JSON.stringify(a), '{"date":"2018-04-23T10:26:00.996Z"}')
+  testToFlexDateTimeZone() {
+    let date = new DateExtended(2019, 6, 19, 9, 59, 3, 34)
+    let flexDate = date.toUTCFlexZonedDateTime()
+    assert.deepEqual(DateExtended.fromFlexZonedDateTime(flexDate), date)
   }
 
-  testEncodeDecodeDate() {
-    const a = new DateExtended('2018-04-23T10:26:00.996Z')
-    const sa = JSON.stringify(a)
-    const b = DateExtendedBuilder.fromJson(sa).build()
+  testToFlexDateTime() {
+    let date = new DateExtended(2019, 6, 19, 9, 59, 3, 34)
+    let flexDate = date.toLocaleFlexDateTime()
+    assert.deepEqual(DateExtended.fromFlexDateTime(flexDate), date)
 
-    assert.deepEqual(a, b)
+    let localDate = DateExtended.fromUTCFlexDateTime(flexDate)
+    assert.deepEqual(localDate.getUTCFullYear(), date.getFullYear())
+    assert.deepEqual(localDate.getUTCMonth(), date.getMonth())
+    assert.deepEqual(localDate.getUTCDate(), date.getDate())
+    assert.deepEqual(localDate.getUTCHours(), date.getHours())
+    assert.deepEqual(localDate.getUTCMinutes(), date.getMinutes())
+    assert.deepEqual(localDate.getUTCSeconds(), date.getSeconds())
+  }
+
+  testToFlexDate() {
+    let date = new DateExtended(2019, 6, 19)
+    let flexDate = date.toLocaleFlexDate()
+    let dateFromFlex = DateExtended.fromFlexDate(flexDate)
+    assert.deepEqual(dateFromFlex.getFullYear(), date.getFullYear())
+    assert.deepEqual(dateFromFlex.getMonth(), date.getMonth())
+    assert.deepEqual(dateFromFlex.getDate(), date.getDate())
+  }
+
+  testToFlexTime() {
+    let date = new DateExtended(0, 0, 0, 9, 59, 3, 34)
+    let flexDate = date.toLocaleFlexTime()
+    let dateFromFlex = DateExtended.fromFlexTime(flexDate)
+    assert.deepEqual(dateFromFlex.getHours(), date.getHours())
+    assert.deepEqual(dateFromFlex.getMinutes(), date.getMinutes())
+    assert.deepEqual(dateFromFlex.getSeconds(), date.getSeconds())
+    assert.deepEqual(dateFromFlex.getMilliseconds(), date.getMilliseconds())
   }
 }
 
