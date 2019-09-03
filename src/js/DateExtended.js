@@ -1,24 +1,128 @@
-import {assertType, isNull, isString} from '@flexio-oss/assert'
+import {assertType, isNumber, isString} from '@flexio-oss/assert'
 import {FlexDate, FlexDateTime, FlexTime, FlexZonedDateTime} from '@flexio-oss/flex-types'
 
-const padLeft = (input, expectedLength, replaceWith) => {
-  return Array(expectedLength - String(input).length + 1).join(replaceWith || '0') + input;
+/**
+ *
+ * @param {(string|number)} input
+ * @param {number} expectedLength
+ * @param {string} replaceWith
+ * @return {string}
+ */
+const padLeft = (input, expectedLength, replaceWith = '0') => {
+  assertType(
+    isString(input) || isNumber(input),
+    'padLeft: `input` argument should be a string or number'
+  )
+  assertType(
+    isNumber(expectedLength),
+    'padLeft: `expectedLength` argument should be a number'
+  )
+  assertType(
+    isString(replaceWith),
+    'padLeft: `replaceWith` argument should be a replaceWith'
+  )
+  return Array(expectedLength - String(input).length + 1).join(replaceWith) + input
 }
 
-
-
-
-
+/**
+ *
+ * @param {string} tzDateTime
+ * @return {string}
+ */
+const fromTZDateTime = (tzDateTime) => {
+  assertType(
+    isString(tzDateTime),
+    'fromTZDateTime: `tzDateTime` argument should be a string'
+  )
+  return tzDateTime.substring(0, tzDateTime.length - 6) + 'Z'
+}
 
 export class DateExtended extends Date {
+
+  /**
+   * @param {FlexTime} flexTime
+   * @return {DateExtended}
+   */
+  static fromFlexTime(flexTime) {
+    assertType(
+      flexTime instanceof FlexTime,
+      'DateExtended:fromFlexTime: `flexTime` argument should be an instance of FlexTime'
+    )
+    let time = flexTime.toJSON().split(/[:.]/g)
+    return new DateExtended(null, null, null, ...time)
+  }
+
+  /**
+   * @param {FlexZonedDateTime} flexZonedDateTime
+   * @return {DateExtended}
+   */
+  static fromFlexZonedDateTime(flexZonedDateTime) {
+    assertType(
+      flexZonedDateTime instanceof FlexZonedDateTime,
+      'DateExtended:fromFlexZonedDateTime: `flexZonedDateTime` argument should be an instance of FlexZonedDateTime'
+    )
+    return new DateExtended(fromTZDateTime(flexZonedDateTime.toJSON()))
+  }
+
+  /**
+   * @param {FlexDate} flexDate
+   * @return {DateExtended}
+   */
+  static fromFlexDate(flexDate) {
+    assertType(
+      flexDate instanceof FlexDate,
+      'DateExtended:fromFlexDate: `flexDate` argument should be an instance of FlexDate'
+    )
+    let fullDate = flexDate.toJSON().split('-')
+    return new DateExtended(fullDate[0], fullDate[1] - 1, fullDate[2])
+  }
+
+  /**
+   * @param {FlexDateTime} flexDateTime
+   * @return {DateExtended}
+   */
+  static fromFlexDateTime(flexDateTime) {
+    assertType(
+      flexDateTime instanceof FlexDateTime,
+      'DateExtended:fromFlexDateTime: `flexDateTime` argument should be an instance of FlexDateTime'
+    )
+    return new DateExtended(flexDateTime.toJSON())
+  }
+
+  /**
+   *
+   * @param {FlexDateTime} flexDateTime
+   * @return {DateExtended}
+   */
+  static fromUTCFlexDateTime(flexDateTime) {
+    assertType(
+      flexDateTime instanceof FlexDateTime,
+      'DateExtended:fromFlexDateTime: `flexDateTime` argument should be an instance of FlexDateTime'
+    )
+    let tmp = new DateExtended(flexDateTime.toJSON())
+    return new DateExtended(tmp.getTime() - (new Date().getTimezoneOffset() * 60000))
+  }
+
+  /**
+   *
+   * @return {string}
+   */
   toUTCFullDate() {
     return this.toISOString().split('T')[0]
   }
 
+  /**
+   *
+   * @return {string}
+   */
   toUTCTime() {
     return this.toISOString().split('T')[1].split('Z')[0]
   }
 
+  /**
+   *
+   * @return {string}
+   */
   toOffset() {
     let str = (this.offsetMinutes < 0 ? '-' : '+')
     str += padLeft(Math.floor(Math.abs(this.getTimezoneOffset()) / 60), 2) + ':' +
@@ -27,12 +131,20 @@ export class DateExtended extends Date {
     return str
   }
 
+  /**
+   *
+   * @return {string}
+   */
   toLocaleFullDate() {
     return this.getFullYear() + '-' +
       padLeft(this.getMonth() + 1, 2) + '-' +
       padLeft(this.getDate(), 2)
   }
 
+  /**
+   *
+   * @return {string}
+   */
   toLocaleTime() {
     return padLeft(this.getHours(), 2) + ':' +
       padLeft(this.getMinutes(), 2) + ':' +
@@ -73,13 +185,6 @@ export class DateExtended extends Date {
   }
 
   /**
-   * {FlexZonedDateTime} flexZonedDateTime
-   */
-  static fromFlexZonedDateTime(flexZonedDateTime) {
-    return new DateExtended(fromTZDateTime(flexZonedDateTime.toJSON()))
-  }
-
-  /**
    *
    * @returns {FlexDateTime}
    */
@@ -95,18 +200,6 @@ export class DateExtended extends Date {
   toUTCFlexDateTime() {
     let str = this.toUTCFullDate() + 'T' + this.toUTCTime()
     return new FlexDateTime(str)
-  }
-
-  /**
-   * {FlexDateTime} flexDateTime
-   */
-  static fromFlexDateTime(flexDateTime) {
-    return new DateExtended(flexDateTime.toJSON())
-  }
-
-  static fromUTCFlexDateTime(flexDateTime) {
-    let tmp = new DateExtended(flexDateTime.toJSON())
-    return new DateExtended(tmp.getTime() - (new Date().getTimezoneOffset() * 60000))
   }
 
   /**
@@ -128,14 +221,6 @@ export class DateExtended extends Date {
   }
 
   /**
-   * {FlexDate} flexDate
-   */
-  static fromFlexDate(flexDate) {
-    let fullDate = flexDate.toJSON().split('-')
-    return new DateExtended(fullDate[0], fullDate[1] - 1, fullDate[2])
-  }
-
-  /**
    *
    * @returns {FlexTime}
    */
@@ -153,15 +238,4 @@ export class DateExtended extends Date {
     return new FlexTime(str)
   }
 
-  /**
-   * {FlexDateTime} flexTime
-   */
-  static fromFlexTime(flexTime) {
-    let time = flexTime.toJSON().split(/[:.]/g)
-    return new DateExtended(null, null, null, ...time)
-  }
-}
-
-function fromTZDateTime(tzDateTime) {
-  return tzDateTime.substring(0, tzDateTime.length - 6) + 'Z'
 }
