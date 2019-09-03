@@ -63,7 +63,7 @@ export class StringArrayBuilder {
   }
 
   /**
-   * @param {StyleSheetMediaArray} instance
+   * @param {StringArray} instance
    * @returns {StringArrayBuilder}
    */
   static from(instance) {
