@@ -1,11 +1,39 @@
-import {assertType, isNull, isString} from '@flexio-oss/assert'
+import {assertType, isNumber, isString} from '@flexio-oss/assert'
 import {FlexDate, FlexDateTime, FlexTime, FlexZonedDateTime} from '@flexio-oss/flex-types'
 
-const padLeft = (input, expectedLength, replaceWith) => {
-  return Array(expectedLength - String(input).length + 1).join(replaceWith || '0') + input
+/**
+ *
+ * @param {(string|number)} input
+ * @param {number} expectedLength
+ * @param {string} replaceWith
+ * @return {string}
+ */
+const padLeft = (input, expectedLength, replaceWith = '0') => {
+  assertType(
+    isString(input) || isNumber(input),
+    'padLeft: `input` argument should be a string or number'
+  )
+  assertType(
+    isNumber(expectedLength),
+    'padLeft: `expectedLength` argument should be a number'
+  )
+  assertType(
+    isString(replaceWith),
+    'padLeft: `replaceWith` argument should be a replaceWith'
+  )
+  return Array(expectedLength - String(input).length + 1).join(replaceWith) + input
 }
 
+/**
+ *
+ * @param {string} tzDateTime
+ * @return {string}
+ */
 const fromTZDateTime = (tzDateTime) => {
+  assertType(
+    isString(tzDateTime),
+    'fromTZDateTime: `tzDateTime` argument should be a string'
+  )
   return tzDateTime.substring(0, tzDateTime.length - 6) + 'Z'
 }
 
