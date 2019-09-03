@@ -13,7 +13,7 @@ import {StringArrayMap, StringArrayMapBuilder} from './src/js/FlexMap/StringArra
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArray', StringArray)
 /**
- * @property {StringArrayBuilder} globalFlexioImport.io.flexio.extended_flex_types.StringArray
+ * @property {StringArrayBuilder} globalFlexioImport.io.flexio.extended_flex_types.StringArrayBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayBuilder', StringArrayBuilder)
 
