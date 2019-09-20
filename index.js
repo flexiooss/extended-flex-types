@@ -80,3 +80,4 @@ export {URLSearchParamsExtendedBuilder}
 export {ArrayMap}
 export {StringArrayMap}
 export {StringArrayMapBuilder}
+export {BuilderInterface} from './src/js/BuilderInterface'
