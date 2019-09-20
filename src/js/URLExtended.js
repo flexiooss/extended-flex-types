@@ -1,4 +1,5 @@
 import {assertType, isNull, isString} from '@flexio-oss/assert'
+import {globalFlexioImport} from '../../../global-import-registry'
 
 export class URLExtended extends URL {
   /**
@@ -67,6 +68,20 @@ export class URLExtendedBuilder {
   static from(instance) {
     const builder = new URLExtendedBuilder()
     builder.href(instance.href)
+    return builder
+  }
+
+  /**
+   *
+   * @param {FlexUrl} flexUrl
+   * @returns {URLExtendedBuilder}
+   */
+  static fromFlexUrl(flexUrl) {
+    assertType(flexUrl instanceof globalFlexioImport.io.flexio.extended_flex_types.types.FlexUrl,
+      'URLExtendedBuilder:fromFlexUrl: arg should be a FlexUrl'
+    )
+    const builder = new URLExtendedBuilder()
+    builder.href(flexUrl.value())
     return builder
   }
 
