@@ -1,3 +1,4 @@
+import './generated/io/package'
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {deepKeyAssigner} from '@flexio-oss/js-generator-helpers'
 import {StringArray, StringArrayBuilder} from './src/js/FlexArray/StringArray'
