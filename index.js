@@ -8,6 +8,7 @@ import {URLSearchParamsExtended, URLSearchParamsExtendedBuilder} from './src/js/
 import {DateExtended} from './src/js/DateExtended'
 import {ArrayMap} from './src/js/FlexMap/ArrayMap'
 import {StringArrayMap, StringArrayMapBuilder} from './src/js/FlexMap/StringArrayMap'
+import {StringMap, StringMapBuilder} from './src/js/FlexMap/StringMap'
 
 /**
  * @property {StringArray} globalFlexioImport.io.flexio.extended_flex_types.StringArray
@@ -68,6 +69,16 @@ deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayMa
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayMapBuilder', StringArrayMapBuilder)
 
+/**
+ * @property {StringMap} globalFlexioImport.io.flexio.extended_flex_types.StringMap
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringMap', StringMap)
+
+/**
+ * @property {StringMapBuilder} globalFlexioImport.io.flexio.extended_flex_types.StringMapBuilder
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringMapBuilder', StringMapBuilder)
+
 export {StringArray}
 export {StringArrayBuilder}
 export {URLExtended}
@@ -80,4 +91,6 @@ export {URLSearchParamsExtendedBuilder}
 export {ArrayMap}
 export {StringArrayMap}
 export {StringArrayMapBuilder}
+export {StringMap}
+export {StringMapBuilder}
 export {BuilderInterface} from './src/js/BuilderInterface'
