@@ -1,5 +1,5 @@
 import {assertType, isNull, isString} from '@flexio-oss/assert'
-import {globalFlexioImport} from '../../../global-import-registry'
+import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 
 export class URLExtended extends URL {
   /**
