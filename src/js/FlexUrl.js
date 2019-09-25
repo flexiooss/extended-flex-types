@@ -104,6 +104,20 @@ class FlexUrlBuilder {
     builder.value(instance.value())
     return builder
   }
+
+  /**
+   * @param {URL} url
+   * @returns {FlexUrlBuilder}
+   */
+  static fromURL(url) {
+    assertType(
+      url instanceof URL,
+      'FlexUrlBuilder:fromURL: `url` should be an instance of URL'
+    )
+    let builder = new FlexUrlBuilder()
+    builder.value(url.href)
+    return builder
+  }
 }
 
 export {FlexUrlBuilder}
