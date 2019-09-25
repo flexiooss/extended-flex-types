@@ -1,2 +1,0 @@
-FlexUrl:
-  value: string
