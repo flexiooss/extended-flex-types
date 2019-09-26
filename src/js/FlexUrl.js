@@ -42,6 +42,46 @@ class FlexUrl {
   toJSON() {
     return this.toObject()
   }
+
+  /**
+   *
+   * @return {FlexUrlBuilder}
+   */
+  static builder() {
+    return new FlexUrlBuilder()
+  }
+
+  /**
+   * @param {object} jsonObject
+   * @returns {FlexUrlBuilder}
+   */
+  static fromObject(jsonObject) {
+    return FlexUrlBuilder.fromObject(jsonObject)
+  }
+
+  /**
+   * @param {string} json
+   * @returns {FlexUrlBuilder}
+   */
+  static fromJson(json) {
+    return FlexUrlBuilder.fromJson(json)
+  }
+
+  /**
+   * @param {FlexUrl} instance
+   * @returns {FlexUrlBuilder}
+   */
+  static from(instance) {
+    return FlexUrlBuilder.from(instance)
+  }
+
+  /**
+   * @param {URL} url
+   * @returns {FlexUrlBuilder}
+   */
+  static fromURL(url) {
+    return FlexUrlBuilder.fromURL(url)
+  }
 }
 
 export {FlexUrl}

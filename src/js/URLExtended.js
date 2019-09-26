@@ -19,6 +19,47 @@ export class URLExtended extends URL {
   toJSON() {
     return this.toObject()
   }
+
+  /**
+   *
+   * @return {URLExtendedBuilder}
+   */
+  static builder() {
+    return new URLExtendedBuilder()
+  }
+
+  /**
+   * @param {Object} jsonObject
+   * @returns {URLExtendedBuilder}
+   */
+  static fromObject(jsonObject) {
+    return URLExtendedBuilder.fromObject(jsonObject)
+  }
+
+  /**
+   * @param {string} json
+   * @returns {URLExtendedBuilder}
+   */
+  static fromJson(json) {
+    return URLExtendedBuilder.fromJson(json)
+  }
+
+  /**
+   * @param {URLExtended} instance
+   * @returns {URLExtendedBuilder}
+   */
+  static from(instance) {
+    return URLExtendedBuilder.from(instance)
+  }
+
+  /**
+   *
+   * @param {FlexUrl} flexUrl
+   * @returns {URLExtendedBuilder}
+   */
+  static fromFlexUrl(flexUrl) {
+    return URLExtendedBuilder.fromFlexUrl(flexUrl)
+  }
 }
 
 export class URLExtendedBuilder {
@@ -77,8 +118,8 @@ export class URLExtendedBuilder {
    * @returns {URLExtendedBuilder}
    */
   static fromFlexUrl(flexUrl) {
-    assertType(flexUrl instanceof globalFlexioImport.io.flexio.extended_flex_types.types.FlexUrl,
-      'URLExtendedBuilder:fromFlexUrl: arg should be a FlexUrl'
+    assertType(flexUrl instanceof globalFlexioImport.io.flexio.extended_flex_types.FlexUrl,
+      'URLExtendedBuilder:fromFlexUrl: argument should be a FlexUrl'
     )
     const builder = new URLExtendedBuilder()
     builder.href(flexUrl.value())
