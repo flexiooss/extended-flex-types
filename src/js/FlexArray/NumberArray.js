@@ -6,10 +6,6 @@ import {isNull, isNumber, assertType} from '@flexio-oss/assert'
  */
 export class NumberArray extends FlexArray {
   _validate(v) {
-    console.log('v')
-    console.log(v)
-    console.log(this)
-
     assertType(isNumber(v) || isNull(v), 'NumberArray: input should be a Number or null')
   }
 
