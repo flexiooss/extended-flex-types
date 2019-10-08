@@ -1,6 +1,7 @@
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {deepKeyAssigner} from '@flexio-oss/js-generator-helpers'
 import {StringArray, StringArrayBuilder} from './src/js/FlexArray/StringArray'
+import {NumberArray, NumberArrayBuilder} from './src/js/FlexArray/NumberArray'
 import {SymbolStringArray, SymbolStringArrayBuilder} from './src/js/FlexArray/SymbolStringArray'
 import {URLExtended, URLExtendedBuilder} from './src/js/URLExtended'
 import {URLSearchParamsExtended, URLSearchParamsExtendedBuilder} from './src/js/URLSearchParamsExtended'
@@ -18,6 +19,14 @@ deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArray',
  * @property {StringArrayBuilder} globalFlexioImport.io.flexio.extended_flex_types.StringArrayBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayBuilder', StringArrayBuilder)
+/**
+ * @property {NumberArray} globalFlexioImport.io.flexio.extended_flex_types.NumberArray
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.NumberArray', NumberArray)
+/**
+ * @property {NumberArrayBuilder} globalFlexioImport.io.flexio.extended_flex_types.NumberArrayBuilder
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.NumberArrayBuilder', NumberArrayBuilder)
 
 /**
  * @property {DateExtended} globalFlexioImport.io.flexio.extended_flex_types.DateExtended
@@ -105,3 +114,4 @@ export {StringArrayMapBuilder}
 export {StringMap}
 export {StringMapBuilder}
 export {BuilderInterface} from './src/js/BuilderInterface'
+export {TypeCheck} from './src/js/TypeCheck'

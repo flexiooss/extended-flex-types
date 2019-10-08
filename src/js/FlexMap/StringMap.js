@@ -1,5 +1,6 @@
 import {FlexMap} from '@flexio-oss/flex-types'
 import {assertType, isNull, isString} from '@flexio-oss/assert'
+import {StringMapBuilder} from '../FlexArray/NumberArray'
 
 /**
  * @extends {FlexMap<?String>}
@@ -20,6 +21,30 @@ export class StringMap extends FlexMap {
       obj[k] = v
     }
     return obj
+  }
+
+  /**
+   * @param {StringMap} instance
+   * @returns {StringMapBuilder}
+   */
+  static from(instance) {
+    return StringMapBuilder.from(instance)
+  }
+
+  /**
+   * @param {Object} jsonObject
+   * @returns {StringMapBuilder}
+   */
+  static fromObject(jsonObject) {
+    return StringMapBuilder.fromObject(jsonObject)
+  }
+
+  /**
+   * @param {string} json
+   * @returns {StringMapBuilder}
+   */
+  static fromJson(json) {
+    return StringMapBuilder.fromJson(json)
   }
 }
 
