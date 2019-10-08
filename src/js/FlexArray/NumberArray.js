@@ -57,6 +57,7 @@ export class NumberArrayBuilder {
    */
   values(values) {
     this._values = values
+    return this
   }
 
   /**
