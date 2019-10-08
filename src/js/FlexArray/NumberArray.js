@@ -6,6 +6,10 @@ import {isNull, isNumber, assertType} from '@flexio-oss/assert'
  */
 export class NumberArray extends FlexArray {
   _validate(v) {
+    console.log('v')
+    console.log(v)
+    console.log(this)
+
     assertType(isNumber(v) || isNull(v), 'NumberArray: input should be a Number or null')
   }
 
@@ -53,7 +57,6 @@ export class NumberArrayBuilder {
    */
   values(values) {
     this._values = values
-    return this
   }
 
   /**
@@ -70,7 +73,11 @@ export class NumberArrayBuilder {
    * @returns {NumberArray}
    */
   build() {
-    return new NumberArray(...this._values)
+    const a = new NumberArray()
+    for (const v of this._values) {
+      a.push(v)
+    }
+    return a
   }
 
   /**
