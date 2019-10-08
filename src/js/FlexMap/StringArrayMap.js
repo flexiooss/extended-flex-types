@@ -1,7 +1,6 @@
 import {FlexMap} from '@flexio-oss/flex-types'
-import {assertType} from '@flexio-oss/assert'
+import {assertType, isObject, isString} from '@flexio-oss/assert'
 import {StringArray} from '../FlexArray/StringArray'
-import {StringArrayMapBuilder} from '../FlexArray/NumberArray'
 
 /**
  * @extends {FlexMap<?StringArray>}
@@ -73,6 +72,8 @@ export class StringArrayMapBuilder {
    * @returns {StringArrayMapBuilder}
    */
   static fromObject(jsonObject) {
+    assertType(isObject(jsonObject), 'input should be an object')
+
     const builder = new StringArrayMapBuilder()
     const entries = Object.entries(jsonObject)
     for (const value of entries) {
@@ -87,15 +88,19 @@ export class StringArrayMapBuilder {
    * @returns {StringArrayMapBuilder}
    */
   static fromJson(json) {
+    assertType(isString(json), 'input should be a string')
+
     const jsonObject = JSON.parse(json)
     return this.fromObject(jsonObject)
   }
 
   /**
-   * @param {FlexMap} instance
+   * @param {StringArrayMap} instance
    * @returns {StringArrayMapBuilder}
    */
   static from(instance) {
+
+    assertType(instance instanceof StringArrayMap, 'input should be an instance of StringArrayMap')
     const builder = new StringArrayMapBuilder()
     builder.entries(instance.entries())
 
