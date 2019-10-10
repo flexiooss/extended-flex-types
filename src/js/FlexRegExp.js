@@ -118,9 +118,23 @@ class FlexRegExpBuilder {
    */
   static fromObject(jsonObject) {
     assertType(isObject(jsonObject), 'input should be an object')
+
     let builder = new FlexRegExpBuilder()
+
     if (jsonObject['value'] !== undefined && !isNull(jsonObject['value'])) {
-      builder.value(new RegExp(jsonObject['value']))
+
+      if (new RegExp(/^\/.*\/$/).test(jsonObject['value'])) {
+
+        builder.value(new RegExp(jsonObject['value'].substring(1, jsonObject['value'].length - 1)))
+
+      } else {
+
+        const splited = jsonObject['value'].split('/')
+        splited.shift()
+
+        const flags = splited.pop()
+        builder.value(new RegExp(splited.join('/'), flags))
+      }
     }
     return builder
   }
