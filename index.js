@@ -10,6 +10,16 @@ import {ArrayMap} from './src/js/FlexMap/ArrayMap'
 import {StringArrayMap, StringArrayMapBuilder} from './src/js/FlexMap/StringArrayMap'
 import {StringMap, StringMapBuilder} from './src/js/FlexMap/StringMap'
 import {FlexUrl, FlexUrlBuilder} from './src/js/FlexUrl'
+import {FlexRegExp, FlexRegExpBuilder} from './src/js/FlexRegExp'
+
+/**
+ * @property {FlexRegExp} globalFlexioImport.io.flexio.extended_flex_types.FlexRegExp
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.FlexRegExp', FlexRegExp)
+/**
+ * @property {FlexRegExpBuilder} globalFlexioImport.io.flexio.extended_flex_types.FlexRegExpBuilder
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.FlexRegExpBuilder', FlexRegExpBuilder)
 
 /**
  * @property {StringArray} globalFlexioImport.io.flexio.extended_flex_types.StringArray
