@@ -10,6 +10,30 @@ export class StringArray extends FlexArray {
   }
 
   /**
+   *
+   * @param { Array.<string> } values
+   * @return {StringArray}
+   */
+  with(values) {
+    return new StringArrayBuilder()
+      .values(values)
+      .build()
+  }
+
+  /**
+   *
+   * @param { Array.<string> } values
+   * @return {StringArray}
+   */
+  withPush(values) {
+    const builder = StringArrayBuilder.from(this)
+    values.forEach((v) => {
+      builder.pushValue(v)
+    })
+    return builder.build()
+  }
+
+  /**
    * @param {StringArray} instance
    * @returns {StringArrayBuilder}
    */
