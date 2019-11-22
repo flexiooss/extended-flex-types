@@ -12,7 +12,6 @@ import {StringMap, StringMapBuilder} from './src/js/FlexMap/StringMap'
 import {FlexUrl, FlexUrlBuilder} from './src/js/FlexUrl'
 import {FlexRegExp, FlexRegExpBuilder} from './src/js/FlexRegExp'
 import {Any, AnyBuilder} from './src/js/Any'
-export {Supplier} from './src/js/Supplier'
 
 /**
  * @property {Any} globalFlexioImport.io.flexio.extended_flex_types.Any

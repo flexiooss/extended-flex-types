@@ -73,12 +73,5 @@ export class TypeCheck {
     return instance instanceof globalFlexioImport.io.flexio.extended_flex_types.StringArrayMap
   }
 
-  /**
-   *
-   * @param {Object} instance
-   * @return {boolean}
-   */
-  static isSupplier(instance) {
-    return instance instanceof Supplier
-  }
+
 }
