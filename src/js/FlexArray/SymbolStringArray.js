@@ -8,6 +8,31 @@ export class SymbolStringArray extends FlexArray {
   _validate(v) {
     assertType(isString(v) || isNull(v) || isSymbol(v), 'SymbolStringArray: input should be a string or null or Symbol')
   }
+
+
+  /**
+   * @param {SymbolStringArray} instance
+   * @returns {SymbolStringArrayBuilder}
+   */
+  static from(instance) {
+    return SymbolStringArrayBuilder.from(instance)
+  }
+
+  /**
+   * @param {Object} jsonObject
+   * @returns {SymbolStringArrayBuilder}
+   */
+  static fromObject(jsonObject) {
+    return SymbolStringArrayBuilder.fromObject(jsonObject)
+  }
+
+  /**
+   * @param {string} json
+   * @returns {SymbolStringArrayBuilder}
+   */
+  static fromJson(json) {
+    return SymbolStringArrayBuilder.fromJson(json)
+  }
 }
 
 export class SymbolStringArrayBuilder {

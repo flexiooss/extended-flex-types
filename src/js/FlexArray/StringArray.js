@@ -8,7 +8,56 @@ export class StringArray extends FlexArray {
   _validate(v) {
     assertType(isString(v) || isNull(v), 'StringArray: input should be a string or null')
   }
+
+  /**
+   *
+   * @param { Array.<string> } values
+   * @return {StringArray}
+   */
+  with(values) {
+    return new StringArrayBuilder()
+      .values(values)
+      .build()
+  }
+
+  /**
+   *
+   * @param { Array.<string> } values
+   * @return {StringArray}
+   */
+  withPush(values) {
+    const builder = StringArrayBuilder.from(this)
+    values.forEach((v) => {
+      builder.pushValue(v)
+    })
+    return builder.build()
+  }
+
+  /**
+   * @param {StringArray} instance
+   * @returns {StringArrayBuilder}
+   */
+  static from(instance) {
+    return StringArrayBuilder.from(instance)
+  }
+
+  /**
+   * @param {Object} jsonObject
+   * @returns {StringArrayBuilder}
+   */
+  static fromObject(jsonObject) {
+    return StringArrayBuilder.fromObject(jsonObject)
+  }
+
+  /**
+   * @param {string} json
+   * @returns {StringArrayBuilder}
+   */
+  static fromJson(json) {
+    return StringArrayBuilder.fromJson(json)
+  }
 }
+
 export class StringArrayBuilder {
   constructor() {
     this._values = []

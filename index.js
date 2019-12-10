@@ -1,21 +1,52 @@
 import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {deepKeyAssigner} from '@flexio-oss/js-generator-helpers'
 import {StringArray, StringArrayBuilder} from './src/js/FlexArray/StringArray'
+import {NumberArray, NumberArrayBuilder} from './src/js/FlexArray/NumberArray'
 import {SymbolStringArray, SymbolStringArrayBuilder} from './src/js/FlexArray/SymbolStringArray'
 import {URLExtended, URLExtendedBuilder} from './src/js/URLExtended'
 import {URLSearchParamsExtended, URLSearchParamsExtendedBuilder} from './src/js/URLSearchParamsExtended'
 import {DateExtended} from './src/js/DateExtended'
 import {ArrayMap} from './src/js/FlexMap/ArrayMap'
 import {StringArrayMap, StringArrayMapBuilder} from './src/js/FlexMap/StringArrayMap'
+import {StringMap, StringMapBuilder} from './src/js/FlexMap/StringMap'
+import {FlexUrl, FlexUrlBuilder} from './src/js/FlexUrl'
+import {FlexRegExp, FlexRegExpBuilder} from './src/js/FlexRegExp'
+import {Any, AnyBuilder} from './src/js/Any'
+
+/**
+ * @property {Any} globalFlexioImport.io.flexio.extended_flex_types.Any
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.Any', Any)
+/**
+ * @property {AnyBuilder} globalFlexioImport.io.flexio.extended_flex_types.AnyBuilder
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.AnyBuilder', AnyBuilder)
+
+/**
+ * @property {FlexRegExp} globalFlexioImport.io.flexio.extended_flex_types.FlexRegExp
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.FlexRegExp', FlexRegExp)
+/**
+ * @property {FlexRegExpBuilder} globalFlexioImport.io.flexio.extended_flex_types.FlexRegExpBuilder
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.FlexRegExpBuilder', FlexRegExpBuilder)
 
 /**
  * @property {StringArray} globalFlexioImport.io.flexio.extended_flex_types.StringArray
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArray', StringArray)
 /**
- * @property {StringArrayBuilder} globalFlexioImport.io.flexio.extended_flex_types.StringArray
+ * @property {StringArrayBuilder} globalFlexioImport.io.flexio.extended_flex_types.StringArrayBuilder
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayBuilder', StringArrayBuilder)
+/**
+ * @property {NumberArray} globalFlexioImport.io.flexio.extended_flex_types.NumberArray
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.NumberArray', NumberArray)
+/**
+ * @property {NumberArrayBuilder} globalFlexioImport.io.flexio.extended_flex_types.NumberArrayBuilder
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.NumberArrayBuilder', NumberArrayBuilder)
 
 /**
  * @property {DateExtended} globalFlexioImport.io.flexio.extended_flex_types.DateExtended
@@ -67,8 +98,29 @@ deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayMa
  */
 deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringArrayMapBuilder', StringArrayMapBuilder)
 
+/**
+ * @property {StringMap} globalFlexioImport.io.flexio.extended_flex_types.StringMap
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringMap', StringMap)
+
+/**
+ * @property {StringMapBuilder} globalFlexioImport.io.flexio.extended_flex_types.StringMapBuilder
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.StringMapBuilder', StringMapBuilder)
+
+/**
+ * @property {FlexUrl} globalFlexioImport.io.flexio.extended_flex_types.FlexUrl
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.FlexUrl', FlexUrl)
+/**
+ * @property {FlexUrlBuilder} globalFlexioImport.io.flexio.extended_flex_types.FlexUrlBuilder
+ */
+deepKeyAssigner(globalFlexioImport, 'io.flexio.extended_flex_types.FlexUrlBuilder', FlexUrlBuilder)
+
 export {StringArray}
 export {StringArrayBuilder}
+export {FlexUrl}
+export {FlexUrlBuilder}
 export {URLExtended}
 export {URLExtendedBuilder}
 export {DateExtended}
@@ -79,3 +131,7 @@ export {URLSearchParamsExtendedBuilder}
 export {ArrayMap}
 export {StringArrayMap}
 export {StringArrayMapBuilder}
+export {StringMap}
+export {StringMapBuilder}
+export {BuilderInterface} from './src/js/BuilderInterface'
+export {TypeCheck} from './src/js/TypeCheck'

@@ -1,4 +1,5 @@
 import {assertType, isNull, isString} from '@flexio-oss/assert'
+import {URLExtendedBuilder} from './URLExtended'
 
 export class URLSearchParamsExtended extends URLSearchParams {
   /**
@@ -17,6 +18,38 @@ export class URLSearchParamsExtended extends URLSearchParams {
    */
   toJSON() {
     return this.toObject()
+  }
+
+  /**
+   *
+   * @return {URLSearchParamsExtendedBuilder}
+   */
+  static builder() {
+    return new URLSearchParamsExtendedBuilder()
+  }
+
+  /**
+   * @param {Object} jsonObject
+   * @returns {URLSearchParamsExtendedBuilder}
+   */
+  static fromObject(jsonObject) {
+    return new URLSearchParamsExtendedBuilder.fromObject(jsonObject)
+  }
+
+  /**
+   * @param {string} json
+   * @returns {URLSearchParamsExtendedBuilder}
+   */
+  static fromJson(json) {
+    return new URLSearchParamsExtendedBuilder.fromJson(json)
+  }
+
+  /**
+   * @param {URLSearchParamsExtended} instance
+   * @returns {URLSearchParamsExtendedBuilder}
+   */
+  static from(instance) {
+    return new URLSearchParamsExtendedBuilder.from(instance)
   }
 }
 
