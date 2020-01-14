@@ -237,5 +237,4 @@ export class DateExtended extends Date {
     let str = this.toUTCTime()
     return new FlexTime(str)
   }
-
 }
