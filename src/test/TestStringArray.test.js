@@ -48,4 +48,4 @@ export class TestStringArray extends TestCase {
   }
 }
 
-runTest(TestStringArray)
+//runTest(TestStringArray)
