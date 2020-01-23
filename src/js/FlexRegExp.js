@@ -2,16 +2,24 @@ import {globalFlexioImport} from '@flexio-oss/global-import-registry'
 import {assertType, isObject, isRegex, isNull, isString} from '@flexio-oss/assert'
 import {deepFreezeSeal} from '@flexio-oss/js-generator-helpers'
 
+
 class FlexRegExp {
   /**
-   * @param {string} value
+   * @param {RegExp} value
+   * @param {?StringArray} namedGroups
    * @private
    */
-  constructor(value) {
+  constructor(value, namedGroups) {
     /**
      * @private
      */
     this._value = value
+    /**
+     *
+     * @type {?StringArray}
+     * @private
+     */
+    this._namedGroups = namedGroups
 
     deepFreezeSeal(this)
   }
@@ -24,12 +32,30 @@ class FlexRegExp {
   }
 
   /**
+   *
+   * @return {?StringArray}
+   */
+  namedGroups() {
+    return this._namedGroups
+  }
+
+  /**
    * @param {RegExp} value
    * @returns {FlexRegExp}
    */
   withValue(value) {
     let builder = FlexRegExpBuilder.from(this)
     builder.value(value)
+    return builder.build()
+  }
+
+  /**
+   * @param {?StringArray} value
+   * @returns {FlexRegExp}
+   */
+  withNamedGroups(value) {
+    let builder = FlexRegExpBuilder.from(this)
+    builder.namedGroups(value)
     return builder.build()
   }
 
@@ -72,6 +98,9 @@ class FlexRegExp {
     if (!isNull(this._value)) {
       jsonObject['value'] = this._value.toString()
     }
+    if (!isNull(this._namedGroups)) {
+      jsonObject['namedGroups'] = this._namedGroups.mapToArray(x => x)
+    }
     return jsonObject
   }
 
@@ -83,7 +112,9 @@ class FlexRegExp {
   }
 }
 
+
 export {FlexRegExp}
+
 
 class FlexRegExpBuilder {
   /**
@@ -91,6 +122,20 @@ class FlexRegExpBuilder {
    */
   constructor() {
     this._value = null
+    this._namedGroups = null
+  }
+
+  /**
+   *
+   * @param {?StringArray} value
+   * @return {FlexRegExpBuilder}
+   */
+  namedGroups(value) {
+    if (!isNull(value)) {
+      assertType(value instanceof globalFlexioImport.io.flexio.flex_types.arrays.StringArray, 'params should be a StringArray')
+    }
+    this._namedGroups = value
+    return this
   }
 
   /**
@@ -109,7 +154,7 @@ class FlexRegExpBuilder {
    * @returns {FlexRegExp}
    */
   build() {
-    return new FlexRegExp(this._value)
+    return new FlexRegExp(this._value, this._namedGroups)
   }
 
   /**
@@ -136,6 +181,10 @@ class FlexRegExpBuilder {
         builder.value(new RegExp(splited.join('/'), flags))
       }
     }
+
+    if (jsonObject['namedGroups'] !== undefined && !isNull(jsonObject['namedGroups'])) {
+      builder.params(new globalFlexioImport.io.flexio.flex_types.arrays.StringArray(...jsonObject['namedGroups'].map(a => a)))
+    }
     return builder
   }
 
@@ -157,8 +206,10 @@ class FlexRegExpBuilder {
     assertType(instance instanceof globalFlexioImport.io.flexio.extended_flex_types.FlexRegExp, 'input should be an instance of FlexRegExp')
     let builder = new FlexRegExpBuilder()
     builder.value(new RegExp(instance.value().toString()))
+    builder.namedGroups(instance.namedGroups())
     return builder
   }
 }
+
 
 export {FlexRegExpBuilder}
