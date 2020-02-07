@@ -213,4 +213,58 @@ export class DateExtended extends Date {
     let str = this.toUTCTime()
     return new FlexTime(str)
   }
+
+  /**
+   *
+   * @param {string} value
+   * @returns {null|FlexDate}
+   */
+  static fromStringToFlexDate(value) {
+    try {
+      let flexDate = DateExtended.fromFlexDate(new FlexDate(value)).toLocaleFlexDate()
+      if (flexDate instanceof FlexDate) {
+        return flexDate
+      }
+      return null
+    } catch (e) {
+      return null
+    }
+  }
+
+  /**
+   *
+   * @param {string} value
+   * @returns {null|FlexDateTime}
+   */
+  static fromStringToFlexDateTime(value) {
+    try {
+      console.log('yy')
+      let flexDateTime = DateExtended.fromFlexDateTime(new FlexDateTime(value)).toLocaleFlexDateTime()
+      if (flexDateTime instanceof FlexDateTime) {
+        return flexDateTime
+      }
+      console.log('no')
+      return null
+    } catch (e) {
+      console.log('catch')
+      return null
+    }
+  }
+
+  /**
+   *
+   * @param {string} value
+   * @returns {null|FlexTime}
+   */
+  static fromStringToFlexTime(value) {
+    try {
+      let flexTime = DateExtended.fromFlexTime(new FlexTime(value)).toLocaleFlexTime()
+      if (flexTime instanceof FlexTime) {
+        return flexTime
+      }
+      return null
+    } catch (e) {
+      return null
+    }
+  }
 }
