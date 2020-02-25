@@ -1,7 +1,7 @@
 /* global runTest */
 import {TestCase} from 'code-altimeter-js'
 import {DateExtended} from '../js/DateExtended'
-import {FlexDate, FlexDateTime, FlexTime, FlexZonedDateTime} from '@flexio-oss/flex-types'
+import {FlexDate, FlexDateTime, FlexTime} from '@flexio-oss/flex-types'
 
 const assert = require('assert')
 
@@ -81,7 +81,7 @@ export class TestDateExtendedTest extends TestCase {
   }
 
   testStringToFlexDateTime() {
-    let str = '2009-06-24T00:00:00.000'
+    let str = '2009-06-24T00:00:00.0001545'
     let flexDate = DateExtended.fromStringToFlexDateTime(str)
     assert.deepEqual(flexDate, new FlexDateTime('2009-06-24T00:00:00.000'))
 

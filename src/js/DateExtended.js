@@ -238,15 +238,12 @@ export class DateExtended extends Date {
    */
   static fromStringToFlexDateTime(value) {
     try {
-      console.log('yy')
       let flexDateTime = DateExtended.fromFlexDateTime(new FlexDateTime(value)).toLocaleFlexDateTime()
       if (flexDateTime instanceof FlexDateTime) {
         return flexDateTime
       }
-      console.log('no')
       return null
     } catch (e) {
-      console.log('catch')
       return null
     }
   }
