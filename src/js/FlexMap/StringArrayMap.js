@@ -1,6 +1,6 @@
 import {FlexMap} from '@flexio-oss/flex-types'
 import {assertType, isObject, isString} from '@flexio-oss/assert'
-import {StringArray} from '../FlexArray/StringArray'
+import {StringArray} from '@flexio-oss/flex-types'
 
 /**
  * @extends {FlexMap<?StringArray>}

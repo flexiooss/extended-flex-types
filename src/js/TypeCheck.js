@@ -72,6 +72,4 @@ export class TypeCheck {
   static isStringArrayMap(instance) {
     return instance instanceof globalFlexioImport.io.flexio.extended_flex_types.StringArrayMap
   }
-
-
 }

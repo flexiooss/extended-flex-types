@@ -24,19 +24,6 @@ const padLeft = (input, expectedLength, replaceWith = '0') => {
   return Array(expectedLength - String(input).length + 1).join(replaceWith) + input
 }
 
-/**
- *
- * @param {string} tzDateTime
- * @return {string}
- */
-const fromTZDateTime = (tzDateTime) => {
-  assertType(
-    isString(tzDateTime),
-    'fromTZDateTime: `tzDateTime` argument should be a string'
-  )
-  return tzDateTime.substring(0, tzDateTime.length - 6) + 'Z'
-}
-
 export class DateExtended extends Date {
 
   /**
@@ -61,7 +48,7 @@ export class DateExtended extends Date {
       flexZonedDateTime instanceof FlexZonedDateTime,
       'DateExtended:fromFlexZonedDateTime: `flexZonedDateTime` argument should be an instance of FlexZonedDateTime'
     )
-    return new DateExtended(fromTZDateTime(flexZonedDateTime.toJSON()))
+    return new DateExtended(flexZonedDateTime.toJSON())
   }
 
   /**
@@ -100,7 +87,8 @@ export class DateExtended extends Date {
       'DateExtended:fromFlexDateTime: `flexDateTime` argument should be an instance of FlexDateTime'
     )
     let tmp = new DateExtended(flexDateTime.toJSON())
-    return new DateExtended(tmp.getTime() - (new Date().getTimezoneOffset() * 60000))
+    tmp.setMinutes(tmp.getMinutes() - tmp.getTimezoneOffset())
+    return tmp
   }
 
   /**
@@ -117,18 +105,6 @@ export class DateExtended extends Date {
    */
   toUTCTime() {
     return this.toISOString().split('T')[1].split('Z')[0]
-  }
-
-  /**
-   *
-   * @return {string}
-   */
-  toOffset() {
-    let str = (this.offsetMinutes < 0 ? '-' : '+')
-    str += padLeft(Math.floor(Math.abs(this.getTimezoneOffset()) / 60), 2) + ':' +
-      padLeft(Math.abs(this.getTimezoneOffset()) % 60, 2)
-
-    return str
   }
 
   /**
@@ -180,7 +156,7 @@ export class DateExtended extends Date {
    * @returns {FlexZonedDateTime}
    */
   toUTCFlexZonedDateTime() {
-    let str = this.toISOString() + this.toOffset()
+    let str = this.toISOString()
     return new FlexZonedDateTime(str)
   }
 
@@ -238,4 +214,54 @@ export class DateExtended extends Date {
     return new FlexTime(str)
   }
 
+  /**
+   *
+   * @param {string} value
+   * @returns {null|FlexDate}
+   */
+  static fromStringToFlexDate(value) {
+    try {
+      let flexDate = DateExtended.fromFlexDate(new FlexDate(value)).toLocaleFlexDate()
+      if (flexDate instanceof FlexDate) {
+        return flexDate
+      }
+      return null
+    } catch (e) {
+      return null
+    }
+  }
+
+  /**
+   *
+   * @param {string} value
+   * @returns {null|FlexDateTime}
+   */
+  static fromStringToFlexDateTime(value) {
+    try {
+      let flexDateTime = DateExtended.fromFlexDateTime(new FlexDateTime(value)).toLocaleFlexDateTime()
+      if (flexDateTime instanceof FlexDateTime) {
+        return flexDateTime
+      }
+      return null
+    } catch (e) {
+      return null
+    }
+  }
+
+  /**
+   *
+   * @param {string} value
+   * @returns {null|FlexTime}
+   */
+  static fromStringToFlexTime(value) {
+    try {
+      let flexTime = DateExtended.fromFlexTime(new FlexTime(value)).toLocaleFlexTime()
+      if (flexTime instanceof FlexTime) {
+        return flexTime
+      }
+      return null
+    } catch (e) {
+      return null
+    }
+  }
 }
