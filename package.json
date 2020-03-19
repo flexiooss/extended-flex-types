@@ -7,7 +7,7 @@
   "author": "Thomas Chatelain (https://github.com/TomAchT)",
   "license": "Apache-2.0",
   "dependencies": {
-    "@flexio-corp/js-api-client-parent": "0.8.0"
+    "@flexio-corp/js-api-client-parent": "0.9.0-dev"
   },
   "peerDependencies": {
     "@flexio-oss/flex-types": ">0.0.0"
